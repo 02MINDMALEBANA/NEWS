@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image, ScrollView } from 'react-native';
 import { NavigationContainer} from '@react-navigation/native'
 import React, { useEffect, useState } from 'react';
 
@@ -31,29 +31,61 @@ export default function App() {
     // </View>
     <View style={styles.container}>
       <View>
-      <Text style={styles.head}>headlines</Text>
+      <Text style={styles.head}>NEWS</Text>
       </View>
-      <View style={styles.topV}>
-        <Text>HEADING</Text>
-        {
+      <ScrollView horizontal={true}>
+      {
+        categories.map((results)=>(
+          <View style={styles.latest}>
+          
+          {
+            results.image_url ? (<Image
+              style={{width:'100%', height: 150}}
+            source={results.image_url
+            }
+          />):(<><Image
+            style={{width: 150, height: 150, alignSelf:'center'}}
+          source={brokenImage
+          }
+        /></>) 
+          }
+          
+          <Text style={{padding:6}}>{results.description}</Text>
+          <Text style={{padding:6}}>{results.category}</Text>
+         
+          </View> 
+        ))
+      }
+      </ScrollView>
+      {/* <ScrollView horizontal={true}>
+      <View style={styles.topV}> */}
+       
+        {/* <Text>HEADING</Text> */}
+        {/* {
           
           categories.map((results)=>(
             // <Text>{results.title}</Text>
             // <Text>{results.country}</Text>
-            <></>
+            <><Text>{results.description}</Text></>
             
           ))
         }
         <Text>{}</Text>
         <Text>{}</Text> 
          <Text></Text>
+        
       </View>
+      </ScrollView> */}
+      
       <View>
+
         <Text style={styles.news}>Latest news </Text>
       </View>
+      <ScrollView>
       {
         categories.map((results)=>(
           <View style={styles.latest}>
+          
           {
             results.image_url ? (<Image
               style={{width:'100%', height: 150}}
@@ -67,10 +99,11 @@ export default function App() {
           }
           
           <Text style={{padding:6}}>{results.title}</Text>
+         
           </View> 
         ))
       }
-     
+      </ScrollView>
     </View>
   );
 }
@@ -85,6 +118,8 @@ const styles = StyleSheet.create({
   },
   head:{
     marginTop: 40,
+    fontSize: 40,
+    fontWeight: 'bold',
 
   },
   topV:{
